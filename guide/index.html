@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方塊突擊介紹 · 大番薯</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07090d;
+    --amber: #f5b42a;
+    --fog: #e8eef6;
+    --muted: rgba(232,238,246,.72);
+    --line: rgba(255,255,255,.12);
+    --blue: #4aa8ff;
+    --orange: #ff8a1c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fog);
+    font-family: "Noto Sans TC", sans-serif;
+    line-height: 1.65;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(10px);
+    background: rgba(7,9,13,.82);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .topbar .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    min-height: 3.6rem;
+  }
+  .brand { font-weight: 900; letter-spacing: .18em; font-size: 1.15rem; }
+  .nav { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .92rem; color: var(--muted); }
+  .nav a:hover { color: var(--amber); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 2.9rem; padding: 0 1.25rem; border-radius: .35rem;
+    font-weight: 900; letter-spacing: .08em;
+  }
+  .btn-play {
+    color: #1a1204;
+    background: linear-gradient(180deg, #ffd978, #f5b42a 55%, #d88800);
+  }
+
+  .hero {
+    padding: 2.8rem 0 2.2rem;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 1.6rem;
+    align-items: center;
+  }
+  .kicker {
+    color: var(--amber); font-weight: 700; letter-spacing: .2em;
+    font-size: .78rem; margin-bottom: .7rem;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+    font-weight: 900; letter-spacing: .06em; line-height: 1.2;
+    margin-bottom: .8rem;
+  }
+  .lede { color: var(--muted); max-width: 34rem; margin-bottom: 1.3rem; }
+  .hero-visual {
+    min-height: 240px; border-radius: .7rem; overflow: hidden;
+    background: #111 center/cover no-repeat;
+    border: 1px solid var(--line);
+  }
+  .hero-visual img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 240px; }
+
+  section { padding: 2.8rem 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+  section h2 {
+    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-weight: 900; letter-spacing: .08em; margin-bottom: .45rem;
+  }
+  section .note { color: var(--muted); margin-bottom: 1.35rem; max-width: 40rem; }
+
+  .mode-list { display: grid; gap: .85rem; }
+  .mode {
+    display: grid; grid-template-columns: 7.5rem 1fr; gap: .9rem;
+    align-items: start; padding: .85rem 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .mode:first-child { border-top: 0; }
+  .mode b { color: var(--amber); letter-spacing: .04em; }
+  .mode p { color: var(--muted); }
+
+  .keys {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: .8rem 1.4rem;
+  }
+  .keys dt {
+    font-weight: 800; color: #fff; margin-bottom: .15rem;
+  }
+  .keys dd { color: var(--muted); margin-bottom: .7rem; }
+  .keys kbd {
+    display: inline-block; min-width: 1.5rem; padding: .05rem .4rem;
+    border: 1px solid rgba(255,255,255,.22); border-bottom-width: 2px;
+    border-radius: .3rem; background: rgba(255,255,255,.06);
+    font: 700 .82rem/1.4 ui-monospace, monospace; color: #fff;
+    margin: 0 .15rem;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: .85rem;
+  }
+  .tile {
+    display: flex; flex-direction: column; gap: .45rem;
+  }
+  .tile .pic {
+    aspect-ratio: 1 / 1.05;
+    border-radius: .55rem; overflow: hidden;
+    border: 1px solid var(--line);
+    background: #10141b;
+  }
+  .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile strong { font-size: .98rem; letter-spacing: .04em; }
+  .tile span { color: var(--muted); font-size: .86rem; }
+
+  .team-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;
+  }
+  .team {
+    padding: 1rem 1.05rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: .6rem;
+    background: rgba(255,255,255,.02);
+  }
+  .team h3 { margin-bottom: .55rem; letter-spacing: .08em; }
+  .team.blue h3 { color: var(--blue); }
+  .team.orange h3 { color: var(--orange); }
+  .team ul { list-style: none; color: var(--muted); }
+  .team li { padding: .22rem 0; border-top: 1px solid rgba(255,255,255,.05); }
+  .team li:first-child { border-top: 0; }
+
+  .weapon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: .9rem;
+  }
+  .weapon .pic { aspect-ratio: 16 / 10; }
+  .weapon .meta { color: var(--muted); font-size: .82rem; }
+
+  .cta-end {
+    display: flex; flex-wrap: wrap; gap: .8rem; align-items: center;
+    justify-content: space-between;
+    padding: 2.4rem 0 3rem;
+  }
+  footer {
+    text-align: center; color: rgba(232,238,246,.4);
+    padding: 0 1rem 2rem; letter-spacing: .14em; font-size: .85rem;
+  }
+
+  @media (max-width: 800px) {
+    .hero-grid, .team-cols { grid-template-columns: 1fr; }
+    .mode { grid-template-columns: 1fr; gap: .25rem; }
+    .nav { display: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">大番薯</a>
+      <div class="nav">
+        <a href="#play">玩法</a>
+        <a href="#chars">角色</a>
+        <a href="#pets">寵物</a>
+        <a href="#guns">武器</a>
+        <a href="#controls">操作</a>
+      </div>
+      <a class="btn btn-play" href="/game/">立即遊玩</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker">GAME GUIDE</div>
+        <h1>方塊突擊 RBMK-1000</h1>
+        <p class="lede">方塊風第一人稱射擊。你加入藍隊，與 9 名隊友、10 名橙隊電腦同場；可選服裝與寵物，用中文武器名在核電站地圖裡開戰。</p>
+        <a class="btn btn-play" href="/game/">進入遊戲</a>
+      </div>
+      <div class="hero-visual"><img src="img/scene_reactor.jpg" alt="反應堆大廳場景"></div>
+    </div>
+  </header>
+
+  <section id="play">
+    <div class="wrap">
+      <h2>怎麼玩</h2>
+      <p class="note">單機即可，免安裝。建議電腦瀏覽器 + 鍵鼠。開局可選模式、難度、場景、服裝與寵物。</p>
+      <div class="mode-list">
+        <div class="mode"><b>殲滅</b><p>殲滅對方全部人員。預設 5 局制勝，回合制買槍。</p></div>
+        <div class="mode"><b>拆除</b><p>攻方下包、守方拆包，40 秒引信。每回合攻守輪換；到 A / B 點按住 G 下包，按住 E 拆包。</p></div>
+        <div class="mode"><b>軍備競賽</b><p>無限重生。擊殺升級武器鏈，最後用小刀完成擊殺者獲勝。</p></div>
+        <div class="mode"><b>快樂模式</b><p>一打百的休閒場，節奏更快、壓力更小。</p></div>
+        <div class="mode"><b>場景</b><p>完好電站 / 爆炸破壞層 / 天台對戰。天台掉下去會扣血並傳回場內。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="outfit">
+    <div class="wrap">
+      <h2>服裝</h2>
+      <p class="note">開局可選你的隊服外觀，不影響數值，只改樣子。</p>
+      <div class="gallery">
+        <div class="tile">
+          <div class="pic"><img src="img/char_blue.jpg" alt="藍隊制服"></div>
+          <strong>藍隊制服</strong><span>預設隊服</span>
+        </div>
+        <div class="tile">
+          <div class="pic"><img src="img/char_black.jpg" alt="黑色特勤"></div>
+          <strong>黑色特勤</strong><span>暗色作戰服</span>
+        </div>
+        <div class="tile">
+          <div class="pic"><img src="img/char_red.jpg" alt="紅色制服"></div>
+          <strong>紅色制服</strong><span>高辨識隊服</span>
+        </div>
+        <div class="tile">
+          <div class="pic"><img src="img/char_white.jpg" alt="白色科研"></div>
+          <strong>白色科研</strong><span>廠區科研風</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pets">
+    <div class="wrap">
+      <h2>寵物</h2>
+      <p class="note">跟著你的小掛件，開局可選。純裝飾，會在身旁活動。</p>
+      <div class="gallery">
+        <div class="tile">
+          <div class="pic" style="background:linear-gradient(160deg,#1a2a22,#0e1518);display:grid;place-items:center">
+            <div style="text-align:center;letter-spacing:.2em;font-weight:900;color:#7dffc8">PARROT</div>
+          </div>
+          <strong>鸚鵡</strong><span>預設寵物，會飛回肩上</span>
+        </div>
+        <div class="tile">
+          <div class="pic"><img src="img/pet_cat.jpg" alt="小貓"></div>
+          <strong>小貓</strong><span>背上小掛件</span>
+        </div>
+        <div class="tile">
+          <div class="pic"><img src="img/pet_dog.jpg" alt="小狗"></div>
+          <strong>小狗</strong><span>背上小掛件</span>
+        </div>
+        <div class="tile">
+          <div class="pic"><img src="img/pet_chicken.jpg" alt="小雞"></div>
+          <strong>小雞</strong><span>背上小掛件</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="chars">
+    <div class="wrap">
+      <h2>人物與隊伍</h2>
+      <p class="note">藍隊是你與隊友，橙隊是敵人。外觀是方塊角色，名字如下。</p>
+      <div class="gallery" style="margin-bottom:1.2rem">
+        <div class="tile" style="grid-column: 1 / -1">
+          <div class="pic" style="aspect-ratio: 21 / 9"><img src="img/bots_group.jpg" alt="角色群像"></div>
+        </div>
+      </div>
+      <div class="team-cols">
+        <div class="team blue">
+          <h3>藍隊（友軍）</h3>
+          <ul>
+            <li>方塊老爹、小方同學、瘦高影子、鐵壁大哥</li>
+            <li>藍帽小工、藍帽技師、藍帽隊長、藍帽學徒、藍帽守衛</li>
+          </ul>
+        </div>
+        <div class="team orange">
+          <h3>橙隊（敵人）</h3>
+          <ul>
+            <li>夜貓子、骨頭隊長、悶聲大哥、金幣獵人、硬核教練</li>
+            <li>橙帽小兵、橙帽工頭、橙帽夜巡、橙帽打手、橙帽新丁</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="guns">
+    <div class="wrap">
+      <h2>武器圖鑑</h2>
+      <p class="note">回合開始可按 B 購買。下面是常用武器的中文名與圖片；遊戲裡還有更多步槍與衝鋒槍。</p>
+      <div class="weapon-grid">
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_knife.jpg" alt="小刀"></div>
+          <strong>小刀</strong><span class="meta">近戰 · 軍備競賽決勝武器</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_glock.jpg" alt="小快槍"></div>
+          <strong>小快槍</strong><span class="meta">手槍 · $200</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_usp.jpg" alt="靜音先生"></div>
+          <strong>靜音先生</strong><span class="meta">手槍 · $200</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_mp5.jpg" alt="疾風槍"></div>
+          <strong>疾風槍</strong><span class="meta">衝鋒槍 · $1500</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_ak47.jpg" alt="老鐵槍"></div>
+          <strong>老鐵槍</strong><span class="meta">步槍 · $2700</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_awp.jpg" alt="天穹狙"></div>
+          <strong>天穹狙</strong><span class="meta">狙擊 · $4750 · 可開鏡</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_nova.jpg" alt="碎星霰彈"></div>
+          <strong>碎星霰彈</strong><span class="meta">霰彈槍 · $1050</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_m249.jpg" alt="烈焰機槍"></div>
+          <strong>烈焰機槍</strong><span class="meta">機槍 · $5200</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_radpaint.jpg" alt="輻射漆彈槍"></div>
+          <strong>輻射漆彈槍</strong><span class="meta">趣味 · $450 · 按 4</span>
+        </div>
+        <div class="tile weapon">
+          <div class="pic"><img src="img/gun_hegrenade.jpg" alt="高爆手榴彈"></div>
+          <strong>高爆手榴彈</strong><span class="meta">投擲 · $300 · 按 4</span>
+        </div>
+      </div>
+      <p class="note" style="margin-top:1.2rem;margin-bottom:0">還有：大炮筒、蜂鳴器、穿甲蝴蝶、重錘手、閃電魚、連珠炮、雷鳴槍、鐵脊步槍、星火卡賓、幻影槍、遠山狙等，遊戲購買選單可看到完整列表。</p>
+    </div>
+  </section>
+
+  <section id="controls">
+    <div class="wrap">
+      <h2>操作說明</h2>
+      <p class="note">熟記這幾組就夠開打。</p>
+      <dl class="keys">
+        <div>
+          <dt>移動</dt>
+          <dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動　<kbd>空白</kbd> 跳　<kbd>Shift</kbd> 靜步　<kbd>Ctrl</kbd>/<kbd>C</kbd> 蹲</dd>
+        </div>
+        <div>
+          <dt>戰鬥</dt>
+          <dd>滑鼠瞄準射擊　<kbd>R</kbd> 換彈　<kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> 主副刀　<kbd>4</kbd> 漆彈/手雷</dd>
+        </div>
+        <div>
+          <dt>任務</dt>
+          <dd><kbd>B</kbd> 購買　<kbd>G</kbd> 下包　<kbd>E</kbd> 拆包/電梯　<kbd>Esc</kbd> 暫停</dd>
+        </div>
+        <div>
+          <dt>其他</dt>
+          <dd><kbd>Tab</kbd> 計分板　<kbd>F3</kbd> FPS　<kbd>F4</kbd> 輝光　<kbd>M</kbd> 靜音</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="wrap cta-end">
+    <div>
+      <strong style="font-size:1.2rem;letter-spacing:.06em">看完直接上場</strong>
+      <div style="color:var(--muted);margin-top:.3rem">電腦瀏覽器體驗最好。</div>
+    </div>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+      <a class="btn btn-play" href="/game/">開始遊戲</a>
+      <a class="btn" href="/" style="border:1px solid rgba(255,255,255,.25)">回首頁</a>
+    </div>
+  </div>
+
+  <footer>大番薯</footer>
+</body>
+</html>
