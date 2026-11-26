@@ -6,264 +6,302 @@
 <title>CANNIKIN 遊戲站</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oxanium:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #0a0d12;
-    --panel: rgba(8, 12, 18, 0.72);
-    --line: rgba(255, 210, 120, 0.22);
-    --amber: #f7a41d;
-    --amber-soft: #ffd27a;
-    --mint: #5ef0c8;
-    --fog: #d7e0ea;
+    --bg: #07090d;
+    --amber: #f5b42a;
+    --amber-deep: #c77800;
+    --fog: #e8eef6;
+    --muted: rgba(232, 238, 246, 0.72);
+    --line: rgba(245, 180, 42, 0.28);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     min-height: 100vh;
+    background: var(--bg);
     color: var(--fog);
     font-family: "Noto Sans TC", sans-serif;
-    background: var(--ink);
+    overflow-x: hidden;
   }
   a { color: inherit; text-decoration: none; }
 
+  /* —— Top brand bar —— */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 0.95rem 0;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.08s forwards;
+  }
+  .topbar::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: calc(100% + 0.55rem);
+    background: linear-gradient(180deg, rgba(7,9,13,0.82), rgba(7,9,13,0));
+    z-index: -1;
+    pointer-events: none;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .brand img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #ff3030;
+    flex-shrink: 0;
+  }
+  .brand-name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.12rem;
+    line-height: 1;
+  }
+  .brand-name .en {
+    font-family: Oxanium, "Noto Sans TC", sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .brand-name .zh {
+    font-weight: 900;
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    letter-spacing: 0.34em;
+    color: var(--amber);
+  }
+  .top-link {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    color: #fff;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.65);
+    border-bottom: 1px solid rgba(245, 180, 42, 0.55);
+    padding-bottom: 2px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .top-link:hover { color: var(--amber); border-color: var(--amber); }
+
+  /* —— Hero —— */
   .hero {
     position: relative;
     min-height: 100vh;
     min-height: 100dvh;
     display: grid;
-    align-items: end;
-    overflow: hidden;
+    align-items: center;
     isolation: isolate;
+    overflow: hidden;
   }
-  .hero-media {
+  .hero-bg {
     position: absolute;
     inset: 0;
     z-index: -2;
     background:
-      linear-gradient(180deg, rgba(6, 8, 12, 0.25) 0%, rgba(6, 8, 12, 0.55) 48%, rgba(6, 8, 12, 0.92) 100%),
-      url("assets/hero-entrance.png") center / cover no-repeat;
-    transform: scale(1.06);
-    animation: drift 18s ease-in-out infinite alternate;
+      url("assets/hero-clean.jpg") center 42% / cover no-repeat;
+    transform: scale(1.04);
+    animation: kenburns 22s ease-in-out infinite alternate;
   }
-  .hero-grain {
+  .hero-shade {
     position: absolute;
     inset: 0;
     z-index: -1;
-    pointer-events: none;
     background:
-      radial-gradient(ellipse at 20% 15%, rgba(247, 164, 29, 0.18), transparent 42%),
-      radial-gradient(ellipse at 80% 70%, rgba(94, 240, 200, 0.08), transparent 36%);
-    mix-blend-mode: screen;
+      linear-gradient(90deg, rgba(7, 9, 13, 0.88) 0%, rgba(7, 9, 13, 0.55) 42%, rgba(7, 9, 13, 0.22) 68%, rgba(7, 9, 13, 0.45) 100%),
+      linear-gradient(180deg, rgba(7, 9, 13, 0.55) 0%, transparent 28%, transparent 62%, rgba(7, 9, 13, 0.82) 100%);
   }
-  .hero-inner {
-    width: min(1120px, calc(100% - 2.5rem));
+  .hero-copy {
+    width: min(1180px, calc(100% - 2rem));
     margin: 0 auto;
-    padding: 0 0 4.5rem;
+    padding: 6.5rem 0 4rem;
   }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 1.4rem;
-    opacity: 0;
-    animation: rise 0.9s ease 0.15s forwards;
-  }
-  .brand img {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 2px solid #ff2a2a;
-    box-shadow: 0 0 0 4px rgba(255, 42, 42, 0.12);
-  }
-  .brand-text {
-    font-family: Orbitron, sans-serif;
+  .hero-copy h1 {
+    max-width: 8.2em;
     font-weight: 900;
-    font-size: clamp(1.35rem, 3vw, 2rem);
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 0 24px rgba(247, 164, 29, 0.35);
-  }
-  .brand-text span { color: var(--amber); }
-  .headline {
-    max-width: 14ch;
-    font-family: Orbitron, sans-serif;
-    font-weight: 900;
-    font-size: clamp(2.4rem, 7vw, 4.8rem);
-    line-height: 0.98;
-    letter-spacing: 0.02em;
-    color: #fff;
+    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+    line-height: 1.12;
+    letter-spacing: 0.04em;
+    text-wrap: balance;
     opacity: 0;
-    animation: rise 0.95s ease 0.28s forwards;
+    animation: fadeUp 0.8s ease 0.2s forwards;
   }
-  .lede {
-    max-width: 34rem;
-    margin-top: 1.1rem;
-    font-size: clamp(1rem, 2.2vw, 1.15rem);
-    line-height: 1.65;
-    color: rgba(215, 224, 234, 0.86);
+  .hero-copy .lede {
+    margin-top: 1.15rem;
+    max-width: 28rem;
+    font-size: clamp(1.02rem, 2vw, 1.18rem);
+    font-weight: 500;
+    line-height: 1.75;
+    color: var(--muted);
     opacity: 0;
-    animation: rise 0.95s ease 0.42s forwards;
+    animation: fadeUp 0.8s ease 0.34s forwards;
   }
-  .cta-row {
+  .cta {
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 1.8rem;
+    gap: 0.85rem;
     opacity: 0;
-    animation: rise 0.95s ease 0.55s forwards;
+    animation: fadeUp 0.8s ease 0.48s forwards;
   }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 3.1rem;
-    padding: 0.85rem 1.45rem;
-    border-radius: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+    min-height: 3.6rem;
+    padding: 0 1.7rem;
+    border-radius: 0.4rem;
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 0.12em;
+    transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
   }
-  .btn-primary {
-    color: #1c1203;
-    background: linear-gradient(180deg, #ffe07a 0%, #f7a41d 55%, #d88a00 100%);
-    box-shadow: 0 10px 28px rgba(247, 164, 29, 0.28);
+  .btn-play {
+    color: #1a1204;
+    background: linear-gradient(180deg, #ffd978, #f5b42a 55%, #d88800);
+    box-shadow: 0 12px 32px rgba(245, 180, 42, 0.28);
+    min-width: 11.5rem;
   }
-  .btn-primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
-  .btn-ghost {
+  .btn-play:hover { filter: brightness(1.06); transform: translateY(-2px); }
+  .btn-more {
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    background: rgba(10, 14, 20, 0.35);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
   }
-  .btn-ghost:hover { border-color: var(--amber-soft); }
+  .btn-more:hover { border-color: var(--amber); background: rgba(245, 180, 42, 0.08); }
 
-  .section {
-    width: min(1120px, calc(100% - 2.5rem));
-    margin: 0 auto;
-    padding: 4.5rem 0 5.5rem;
-  }
-  .section h2 {
-    font-family: Orbitron, sans-serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.55rem;
-  }
-  .section p.note {
-    color: rgba(215, 224, 234, 0.68);
-    margin-bottom: 1.8rem;
-    max-width: 36rem;
-    line-height: 1.6;
-  }
-  .game-link {
+  /* —— Game strip (one interactive surface, not a card stack) —— */
+  .feature {
+    position: relative;
+    min-height: min(88vh, 760px);
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 1.4rem;
-    align-items: stretch;
-    padding: 1rem;
-    border: 1px solid var(--line);
-    border-radius: 1rem;
+    align-items: end;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .feature-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: url("assets/scene-roof.jpg") center / cover no-repeat;
+    transform: scale(1.03);
+  }
+  .feature-shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
     background:
-      linear-gradient(135deg, rgba(247, 164, 29, 0.08), transparent 40%),
-      var(--panel);
-    transition: border-color 0.2s ease, transform 0.2s ease;
+      linear-gradient(180deg, rgba(7,9,13,0.35) 0%, rgba(7,9,13,0.25) 35%, rgba(7,9,13,0.88) 100%),
+      linear-gradient(90deg, rgba(7,9,13,0.7) 0%, transparent 55%);
   }
-  .game-link:hover {
-    border-color: rgba(247, 164, 29, 0.55);
-    transform: translateY(-2px);
+  .feature-inner {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 4.5rem 0 3.5rem;
   }
-  .game-copy { padding: 0.8rem 0.6rem 0.8rem 0.4rem; display: flex; flex-direction: column; justify-content: center; }
-  .game-copy .tag {
-    display: inline-block;
-    width: fit-content;
-    margin-bottom: 0.7rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    color: var(--mint);
+  .feature-kicker {
+    font-family: Oxanium, "Noto Sans TC", sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
+    color: #7dffc8;
+    margin-bottom: 0.85rem;
   }
-  .game-copy h3 {
-    font-family: Orbitron, sans-serif;
-    font-size: clamp(1.35rem, 3vw, 1.9rem);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.55rem;
+  .feature h2 {
+    font-weight: 900;
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    margin-bottom: 0.85rem;
   }
-  .game-copy p {
-    color: rgba(215, 224, 234, 0.78);
-    line-height: 1.65;
-    margin-bottom: 1.1rem;
+  .feature p {
+    max-width: 32rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 1.6rem;
   }
-  .game-copy .play {
-    color: var(--amber-soft);
-    font-weight: 800;
-    letter-spacing: 0.08em;
-  }
-  .game-visual {
-    min-height: 220px;
-    border-radius: 0.75rem;
-    background: url("assets/card-roof.png") center / cover no-repeat;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  }
+  .feature .btn-play { min-width: 12.5rem; min-height: 3.8rem; font-size: 1.08rem; }
 
   footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 1.4rem 1.25rem 2rem;
+    padding: 1.6rem 1rem 2.2rem;
     text-align: center;
-    color: rgba(215, 224, 234, 0.45);
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
+    color: rgba(232, 238, 246, 0.42);
+    font-size: 0.86rem;
+    letter-spacing: 0.14em;
   }
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(18px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: none; }
   }
-  @keyframes drift {
-    from { transform: scale(1.06) translate3d(0, 0, 0); }
-    to { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+  @keyframes kenburns {
+    from { transform: scale(1.04) translate3d(0,0,0); }
+    to { transform: scale(1.1) translate3d(-1.2%, -0.8%, 0); }
   }
 
-  @media (max-width: 820px) {
-    .game-link { grid-template-columns: 1fr; }
-    .game-visual { min-height: 180px; order: -1; }
-    .hero-inner { padding-bottom: 3.2rem; }
+  @media (max-width: 720px) {
+    .topbar { padding-top: 0.95rem; }
+    .brand img { width: 42px; height: 42px; }
+    .hero-copy { padding: 5.8rem 0 3rem; }
+    .hero-copy h1 { max-width: none; font-size: clamp(2.25rem, 11vw, 3rem); }
+    .cta { flex-direction: column; align-items: stretch; }
+    .btn { width: 100%; min-height: 3.4rem; }
+    .feature { min-height: 70vh; }
+    .feature-inner { padding: 3rem 0 2.6rem; }
   }
 </style>
 </head>
 <body>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <img src="assets/cannikin_logo.jpg" alt="">
+      <span class="brand-name">
+        <span class="en">Cannikin</span>
+        <span class="zh">遊戲站</span>
+      </span>
+    </a>
+    <a class="top-link" href="#play">現正上線</a>
+  </div>
+
   <header class="hero">
-    <div class="hero-media" aria-hidden="true"></div>
-    <div class="hero-grain" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <div class="brand">
-        <img src="assets/cannikin_logo.jpg" alt="CANNIKIN">
-        <div class="brand-text">CANNIKIN <span>遊戲站</span></div>
-      </div>
-      <h1 class="headline">方塊世界，立刻開戰</h1>
-      <p class="lede">瀏覽器就能玩的第一人稱射擊小站。先從《方塊突擊 RBMK-1000》開始，之後會陸續加上更多小遊戲。</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="/game/">立即遊玩</a>
-        <a class="btn btn-ghost" href="#games">看看有什麼</a>
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <h1>方塊世界<br>立刻開戰</h1>
+      <p class="lede">瀏覽器就能玩。先從《方塊突擊》開始，之後會陸續加上更多小遊戲。</p>
+      <div class="cta">
+        <a class="btn btn-play" href="/game/">立即遊玩</a>
+        <a class="btn btn-more" href="#play">遊戲介紹</a>
       </div>
     </div>
   </header>
 
-  <main id="games" class="section">
-    <h2>現正上線</h2>
-    <p class="note">單機對戰 BOT，免安裝。建議使用電腦瀏覽器，鍵鼠操作體驗最好。</p>
-    <a class="game-link" href="/game/">
-      <div class="game-copy">
-        <span class="tag">FPS · 10v10</span>
-        <h3>方塊突擊 RBMK-1000</h3>
-        <p>Minecraft 方塊風核電站地圖。殲滅、拆除、軍備競賽、天台對戰，你加 19 名電腦同場。</p>
-        <span class="play">進入遊戲 →</span>
-      </div>
-      <div class="game-visual" role="img" aria-label="天台對戰場景"></div>
-    </a>
-  </main>
+  <section class="feature" id="play">
+    <div class="feature-bg" aria-hidden="true"></div>
+    <div class="feature-shade" aria-hidden="true"></div>
+    <div class="feature-inner">
+      <div class="feature-kicker">FPS · 10v10 · 單機 BOT</div>
+      <h2>方塊突擊 RBMK-1000</h2>
+      <p>核電站地圖裡的第一人稱射擊：殲滅、拆除、軍備競賽、天台對戰。你與 19 名電腦同場，鍵鼠操作最順手。</p>
+      <a class="btn btn-play" href="/game/">進入遊戲</a>
+    </div>
+  </section>
 
-  <footer>CANNIKIN GAMING · 大番薯 · aBcDIQ180</footer>
+  <footer>CANNIKIN GAMING · 大番薯</footer>
 </body>
 </html>
