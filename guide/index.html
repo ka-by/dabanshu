@@ -40,6 +40,10 @@
   .brand { font-weight: 900; letter-spacing: .18em; font-size: 1.15rem; }
   .nav { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .92rem; color: var(--muted); }
   .nav a:hover { color: var(--amber); }
+  .top-actions { display: flex; align-items: center; gap: .7rem; }
+  .lang { display: flex; border: 2px solid var(--amber); border-radius: 999px; overflow: hidden; background: #000; box-shadow: 0 0 0 3px rgba(245,180,42,.22); }
+  .lang button { min-width: 4.4rem; min-height: 2.5rem; border: 0; background: transparent; color: #fff; font-weight: 900; font-size: 1rem; cursor: pointer; font-family: inherit; }
+  .lang button.on { background: var(--amber); color: #1a1204; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
     min-height: 2.9rem; padding: 0 1.25rem; border-radius: .35rem;
@@ -173,15 +177,21 @@
 <body>
   <div class="topbar">
     <div class="wrap">
-      <a class="brand" href="../">大番薯</a>
+      <a class="brand" href="../" data-zh="大番薯" data-en="Da Ban Shu">大番薯</a>
       <div class="nav">
-        <a href="#play">玩法</a>
-        <a href="#chars">角色</a>
-        <a href="#pets">寵物</a>
-        <a href="#guns">武器</a>
-        <a href="#controls">操作</a>
+        <a href="#play" data-zh="玩法" data-en="Modes">玩法</a>
+        <a href="#chars" data-zh="角色" data-en="Characters">角色</a>
+        <a href="#pets" data-zh="寵物" data-en="Pets">寵物</a>
+        <a href="#guns" data-zh="武器" data-en="Weapons">武器</a>
+        <a href="#controls" data-zh="操作" data-en="Controls">操作</a>
       </div>
-      <a class="btn btn-play" href="../play.html">立即遊玩</a>
+      <div class="top-actions">
+        <div class="lang" role="group" aria-label="語言 Language">
+          <button type="button" data-lang-switch="zh">中文</button>
+          <button type="button" data-lang-switch="en">EN</button>
+        </div>
+        <a class="btn btn-play" href="../play.html" data-zh="立即遊玩" data-en="Play now">立即遊玩</a>
+      </div>
     </div>
   </div>
 
@@ -189,9 +199,9 @@
     <div class="wrap hero-grid">
       <div>
         <div class="kicker">GAME GUIDE</div>
-        <h1>方塊突擊 RBMK-1000</h1>
-        <p class="lede">方塊風第一人稱射擊。你加入藍隊，與 9 名隊友、10 名橙隊電腦同場；可選服裝與寵物，用中文武器名在核電站地圖裡開戰。</p>
-        <a class="btn btn-play" href="../play.html">進入遊戲</a>
+        <h1 data-zh="方塊突擊 RBMK-1000" data-en="Block Strike RBMK-1000">方塊突擊 RBMK-1000</h1>
+        <p class="lede" data-zh="方塊風第一人稱射擊。你加入藍隊，與 9 名隊友、10 名橙隊電腦同場；可選服裝與寵物，用中文武器名在核電站地圖裡開戰。" data-en="A block-style first-person shooter. You join the blue team with 9 teammates against 10 orange bots. Pick an outfit and a pet, then fight in the reactor with the in-game weapon names.">方塊風第一人稱射擊。你加入藍隊，與 9 名隊友、10 名橙隊電腦同場；可選服裝與寵物，用中文武器名在核電站地圖裡開戰。</p>
+        <a class="btn btn-play" href="../play.html" data-zh="進入遊戲" data-en="Enter game">進入遊戲</a>
       </div>
       <div class="hero-visual"><img src="img/scene_reactor.jpg" alt="反應堆大廳場景"></div>
     </div>
@@ -199,38 +209,38 @@
 
   <section id="play">
     <div class="wrap">
-      <h2>怎麼玩</h2>
-      <p class="note">單機即可，免安裝。建議電腦瀏覽器 + 鍵鼠。開局可選模式、難度、場景、服裝與寵物。</p>
+      <h2 data-zh="怎麼玩" data-en="How to play">怎麼玩</h2>
+      <p class="note" data-zh="單機即可，免安裝。建議電腦瀏覽器 + 鍵鼠。開局可選模式、難度、場景、服裝與寵物。" data-en="Single player, nothing to install. A computer browser and mouse work best. At the start you choose mode, difficulty, scene, outfit, and pet.">單機即可，免安裝。建議電腦瀏覽器 + 鍵鼠。開局可選模式、難度、場景、服裝與寵物。</p>
       <div class="mode-list">
-        <div class="mode"><b>殲滅</b><p>殲滅對方全部人員。預設 5 局制勝，回合制買槍。</p></div>
-        <div class="mode"><b>拆除</b><p>攻方下包、守方拆包，40 秒引信。每回合攻守輪換；到 A / B 點按住 G 下包，按住 E 拆包。</p></div>
-        <div class="mode"><b>軍備競賽</b><p>無限重生。擊殺升級武器鏈，最後用小刀完成擊殺者獲勝。</p></div>
-        <div class="mode"><b>快樂模式</b><p>一打百的休閒場，節奏更快、壓力更小。</p></div>
-        <div class="mode"><b>場景</b><p>完好電站 / 爆炸破壞層 / 天台對戰。天台掉下去會扣血並傳回場內。</p></div>
+        <div class="mode"><b data-zh="殲滅" data-en="Elimination">殲滅</b><p data-zh="殲滅對方全部人員。預設 5 局制勝，回合制買槍。" data-en="Wipe out the other team. First to 5 rounds wins. Buy guns between rounds.">殲滅對方全部人員。預設 5 局制勝，回合制買槍。</p></div>
+        <div class="mode"><b data-zh="拆除" data-en="Defuse">拆除</b><p data-zh="攻方下包、守方拆包，40 秒引信。每回合攻守輪換；到 A / B 點按住 G 下包，按住 E 拆包。" data-en="Attackers plant, defenders defuse, 40-second fuse. Sides swap each round. Hold G to plant at A or B, hold E to defuse.">攻方下包、守方拆包，40 秒引信。每回合攻守輪換；到 A / B 點按住 G 下包，按住 E 拆包。</p></div>
+        <div class="mode"><b data-zh="軍備競賽" data-en="Arms race">軍備競賽</b><p data-zh="無限重生。擊殺升級武器鏈，最後用小刀完成擊殺者獲勝。" data-en="Unlimited respawns. Each kill upgrades your weapon. The player who finishes with the knife wins.">無限重生。擊殺升級武器鏈，最後用小刀完成擊殺者獲勝。</p></div>
+        <div class="mode"><b data-zh="快樂模式" data-en="Happy mode">快樂模式</b><p data-zh="一打百的休閒場，節奏更快、壓力更小。" data-en="A casual one-versus-a-hundred match. Faster, and less pressure.">一打百的休閒場，節奏更快、壓力更小。</p></div>
+        <div class="mode"><b data-zh="場景" data-en="Scenes">場景</b><p data-zh="完好電站 / 爆炸破壞層 / 天台對戰。天台掉下去會扣血並傳回場內。" data-en="Intact plant, ruined layer, or rooftop fight. Falling off the roof costs health and sends you back.">完好電站 / 爆炸破壞層 / 天台對戰。天台掉下去會扣血並傳回場內。</p></div>
       </div>
     </div>
   </section>
 
   <section id="outfit">
     <div class="wrap">
-      <h2>服裝</h2>
-      <p class="note">開局可選你的隊服外觀，不影響數值，只改樣子。</p>
+      <h2 data-zh="服裝" data-en="Outfits">服裝</h2>
+      <p class="note" data-zh="開局可選你的隊服外觀，不影響數值，只改樣子。" data-en="Choose your look at the start. It changes appearance only, not stats.">開局可選你的隊服外觀，不影響數值，只改樣子。</p>
       <div class="gallery">
         <div class="tile">
           <div class="pic"><img src="img/char_blue.jpg" alt="藍隊制服"></div>
-          <strong>藍隊制服</strong><span>預設隊服</span>
+          <strong data-zh="藍隊制服" data-en="Blue uniform">藍隊制服</strong><span data-zh="預設隊服" data-en="Default kit">預設隊服</span>
         </div>
         <div class="tile">
           <div class="pic"><img src="img/char_black.jpg" alt="黑色特勤"></div>
-          <strong>黑色特勤</strong><span>暗色作戰服</span>
+          <strong data-zh="黑色特勤" data-en="Black ops">黑色特勤</strong><span data-zh="暗色作戰服" data-en="Dark combat kit">暗色作戰服</span>
         </div>
         <div class="tile">
           <div class="pic"><img src="img/char_red.jpg" alt="紅色制服"></div>
-          <strong>紅色制服</strong><span>高辨識隊服</span>
+          <strong data-zh="紅色制服" data-en="Red uniform">紅色制服</strong><span data-zh="高辨識隊服" data-en="Easy to spot">高辨識隊服</span>
         </div>
         <div class="tile">
           <div class="pic"><img src="img/char_white.jpg" alt="白色科研"></div>
-          <strong>白色科研</strong><span>廠區科研風</span>
+          <strong data-zh="白色科研" data-en="White lab">白色科研</strong><span data-zh="廠區科研風" data-en="Plant researcher look">廠區科研風</span>
         </div>
       </div>
     </div>
@@ -238,26 +248,26 @@
 
   <section id="pets">
     <div class="wrap">
-      <h2>寵物</h2>
-      <p class="note">跟著你的小掛件，開局可選。純裝飾，會在身旁活動。</p>
+      <h2 data-zh="寵物" data-en="Pets">寵物</h2>
+      <p class="note" data-zh="跟著你的小掛件，開局可選。純裝飾，會在身旁活動。" data-en="A small companion you pick at the start. It stays beside you.">跟著你的小掛件，開局可選。純裝飾，會在身旁活動。</p>
       <div class="gallery">
         <div class="tile">
           <div class="pic" style="background:linear-gradient(160deg,#1a2a22,#0e1518);display:grid;place-items:center">
             <div style="text-align:center;letter-spacing:.2em;font-weight:900;color:#7dffc8">PARROT</div>
           </div>
-          <strong>鸚鵡</strong><span>預設寵物，會飛回肩上</span>
+          <strong data-zh="鸚鵡" data-en="Parrot">鸚鵡</strong><span data-zh="預設寵物，會飛回肩上" data-en="Default pet. Flies back to your shoulder">預設寵物，會飛回肩上</span>
         </div>
         <div class="tile">
           <div class="pic"><img src="img/pet_cat.jpg" alt="小貓"></div>
-          <strong>小貓</strong><span>背上小掛件</span>
+          <strong data-zh="小貓" data-en="Cat">小貓</strong><span data-zh="背上小掛件" data-en="Rides on your back">背上小掛件</span>
         </div>
         <div class="tile">
           <div class="pic"><img src="img/pet_dog.jpg" alt="小狗"></div>
-          <strong>小狗</strong><span>背上小掛件</span>
+          <strong data-zh="小狗" data-en="Dog">小狗</strong><span data-zh="背上小掛件" data-en="Rides on your back">背上小掛件</span>
         </div>
         <div class="tile">
           <div class="pic"><img src="img/pet_chicken.jpg" alt="小雞"></div>
-          <strong>小雞</strong><span>背上小掛件</span>
+          <strong data-zh="小雞" data-en="Chicken">小雞</strong><span data-zh="背上小掛件" data-en="Rides on your back">背上小掛件</span>
         </div>
       </div>
     </div>
@@ -265,8 +275,8 @@
 
   <section id="chars">
     <div class="wrap">
-      <h2>人物與隊伍</h2>
-      <p class="note">藍隊是你與隊友，橙隊是敵人。外觀是方塊角色，名字如下。</p>
+      <h2 data-zh="人物與隊伍" data-en="Characters and teams">人物與隊伍</h2>
+      <p class="note" data-zh="藍隊是你與隊友，橙隊是敵人。外觀是方塊角色，名字如下。" data-en="Blue is you and your teammates. Orange is the enemy. Names below.">藍隊是你與隊友，橙隊是敵人。外觀是方塊角色，名字如下。</p>
       <div class="gallery" style="margin-bottom:1.2rem">
         <div class="tile" style="grid-column: 1 / -1">
           <div class="pic" style="aspect-ratio: 21 / 9"><img src="img/bots_group.jpg" alt="角色群像"></div>
@@ -274,14 +284,14 @@
       </div>
       <div class="team-cols">
         <div class="team blue">
-          <h3>藍隊（友軍）</h3>
+          <h3 data-zh="藍隊（友軍）" data-en="Blue team (allies)">藍隊（友軍）</h3>
           <ul>
             <li>方塊老爹、小方同學、瘦高影子、鐵壁大哥</li>
             <li>藍帽小工、藍帽技師、藍帽隊長、藍帽學徒、藍帽守衛</li>
           </ul>
         </div>
         <div class="team orange">
-          <h3>橙隊（敵人）</h3>
+          <h3 data-zh="橙隊（敵人）" data-en="Orange team (enemies)">橙隊（敵人）</h3>
           <ul>
             <li>夜貓子、骨頭隊長、悶聲大哥、金幣獵人、硬核教練</li>
             <li>橙帽小兵、橙帽工頭、橙帽夜巡、橙帽打手、橙帽新丁</li>
@@ -293,8 +303,8 @@
 
   <section id="guns">
     <div class="wrap">
-      <h2>武器圖鑑</h2>
-      <p class="note">回合開始可按 B 購買。下面是常用武器的中文名與圖片；遊戲裡還有更多步槍與衝鋒槍。</p>
+      <h2 data-zh="武器圖鑑" data-en="Weapons">武器圖鑑</h2>
+      <p class="note" data-zh="回合開始可按 B 購買。下面是常用武器的中文名與圖片；遊戲裡還有更多步槍與衝鋒槍。" data-en="Press B at the start of a round to buy. These are the common weapons. More rifles and SMGs are in the game.">回合開始可按 B 購買。下面是常用武器的中文名與圖片；遊戲裡還有更多步槍與衝鋒槍。</p>
       <div class="weapon-grid">
         <div class="tile weapon">
           <div class="pic"><img src="img/gun_knife.jpg" alt="小刀"></div>
@@ -343,24 +353,24 @@
 
   <section id="controls">
     <div class="wrap">
-      <h2>操作說明</h2>
-      <p class="note">熟記這幾組就夠開打。</p>
+      <h2 data-zh="操作說明" data-en="Controls">操作說明</h2>
+      <p class="note" data-zh="熟記這幾組就夠開打。" data-en="These keys are enough to start.">熟記這幾組就夠開打。</p>
       <dl class="keys">
         <div>
-          <dt>移動</dt>
-          <dd><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動　<kbd>空白</kbd> 跳　<kbd>Shift</kbd> 靜步　<kbd>Ctrl</kbd>/<kbd>C</kbd> 蹲</dd>
+          <dt data-zh="移動" data-en="Move">移動</dt>
+          <dd data-zh="WASD 移動，空白跳，Shift 靜步，Ctrl 或 C 蹲" data-en="WASD move, Space jump, Shift walk, Ctrl or C crouch">WASD 移動，空白跳，Shift 靜步，Ctrl 或 C 蹲</dd>
         </div>
         <div>
-          <dt>戰鬥</dt>
-          <dd>滑鼠瞄準射擊　<kbd>R</kbd> 換彈　<kbd>1</kbd>/<kbd>2</kbd>/<kbd>3</kbd> 主副刀　<kbd>4</kbd> 漆彈/手雷</dd>
+          <dt data-zh="戰鬥" data-en="Fight">戰鬥</dt>
+          <dd data-zh="滑鼠瞄準射擊，R 換彈，1/2/3 主武器、手槍、刀，4 漆彈或手雷" data-en="Mouse to aim and shoot, R reload, 1/2/3 primary, pistol, knife, 4 paint or grenade">滑鼠瞄準射擊，R 換彈，1/2/3 主武器、手槍、刀，4 漆彈或手雷</dd>
         </div>
         <div>
-          <dt>任務</dt>
-          <dd><kbd>B</kbd> 購買　<kbd>G</kbd> 下包　<kbd>E</kbd> 拆包/電梯　<kbd>Esc</kbd> 暫停</dd>
+          <dt data-zh="任務" data-en="Objectives">任務</dt>
+          <dd data-zh="B 購買，G 下包，E 拆包或電梯，Esc 暫停" data-en="B buy, G plant, E defuse or elevator, Esc pause">B 購買，G 下包，E 拆包或電梯，Esc 暫停</dd>
         </div>
         <div>
-          <dt>其他</dt>
-          <dd><kbd>Tab</kbd> 計分板　<kbd>F3</kbd> FPS　<kbd>F4</kbd> 輝光　<kbd>M</kbd> 靜音</dd>
+          <dt data-zh="其他" data-en="Other">其他</dt>
+          <dd data-zh="Tab 計分板，F3 顯示 FPS，F4 輝光，M 靜音" data-en="Tab scoreboard, F3 FPS, F4 glow, M mute">Tab 計分板，F3 顯示 FPS，F4 輝光，M 靜音</dd>
         </div>
       </dl>
     </div>
@@ -368,15 +378,16 @@
 
   <div class="wrap cta-end">
     <div>
-      <strong style="font-size:1.2rem;letter-spacing:.06em">看完直接上場</strong>
-      <div style="color:var(--muted);margin-top:.3rem">電腦瀏覽器體驗最好。</div>
+      <strong style="font-size:1.2rem;letter-spacing:.06em" data-zh="看完直接上場" data-en="Ready to play">看完直接上場</strong>
+      <div style="color:var(--muted);margin-top:.3rem" data-zh="電腦瀏覽器體驗最好。" data-en="A computer browser plays best.">電腦瀏覽器體驗最好。</div>
     </div>
     <div style="display:flex;gap:.7rem;flex-wrap:wrap">
-      <a class="btn btn-play" href="../play.html">開始遊戲</a>
-      <a class="btn" href="../" style="border:1px solid rgba(255,255,255,.25)">回首頁</a>
+      <a class="btn btn-play" href="../play.html" data-zh="開始遊戲" data-en="Start game">開始遊戲</a>
+      <a class="btn" href="../" style="border:1px solid rgba(255,255,255,.25)" data-zh="回首頁" data-en="Home">回首頁</a>
     </div>
   </div>
 
-  <footer>大番薯</footer>
+  <footer data-zh="大番薯" data-en="Da Ban Shu">大番薯</footer>
+  <script src="../assets/lang.js"></script>
 </body>
 </html>

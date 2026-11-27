@@ -9,7 +9,7 @@
   html, body { height: 100%; background: #000; color: #e8eef6; font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; }
   body { display: flex; flex-direction: column; }
   header {
-    height: 48px;
+    height: 58px;
     flex: none;
     display: flex;
     align-items: center;
@@ -20,17 +20,25 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
   a { color: inherit; text-decoration: none; font-weight: 800; letter-spacing: 0.06em; }
-  .back { color: #f5b42a; }
-  .name { font-size: 14px; opacity: 0.85; }
+  button { font-family: inherit; }
+  .back { color: #f5b42a; font-size: 16px; }
+  .name { font-size: 15px; opacity: 0.9; }
+  .lang { display: flex; border: 2px solid #f5b42a; border-radius: 999px; overflow: hidden; background: #000; }
+  .lang button { min-width: 4.4rem; min-height: 2.3rem; border: 0; background: transparent; color: #fff; font-weight: 900; font-size: 15px; cursor: pointer; }
+  .lang button.on { background: #f5b42a; color: #1a1204; }
   iframe { flex: 1; width: 100%; border: 0; background: #000; }
 </style>
 </head>
 <body>
   <header>
-    <a class="back" href="./">← 返回大廳</a>
-    <div class="name">方塊突擊 RBMK-1000</div>
-    <a href="guide/">介紹</a>
+    <a class="back" href="./" data-zh="← 返回大廳" data-en="← Back to hall">← 返回大廳</a>
+    <div class="lang" role="group" aria-label="語言 Language">
+      <button type="button" data-lang-switch="zh">中文</button>
+      <button type="button" data-lang-switch="en">EN</button>
+    </div>
+    <a href="guide/" data-zh="介紹" data-en="Guide">介紹</a>
   </header>
   <iframe src="game/" title="方塊突擊" allow="fullscreen; pointer-lock"></iframe>
+  <script src="assets/lang.js"></script>
 </body>
 </html>

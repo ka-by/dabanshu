@@ -8,89 +8,116 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --amber: #f5b42a;
-    --fog: #f4f7fb;
-    --muted: rgba(244, 247, 251, 0.82);
-  }
+  :root { --amber: #f5b42a; --fog: #f4f7fb; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { min-height: 100%; background: #071018; color: var(--fog); font-family: "Noto Sans TC", sans-serif; }
   a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
   .stage {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     background:
-      linear-gradient(180deg, rgba(5, 10, 16, 0.34) 0%, rgba(5, 10, 16, 0.02) 24%, rgba(5, 10, 16, 0.12) 46%, rgba(5, 8, 14, 0.72) 68%, rgba(5, 8, 14, 0.94) 100%),
-      url("assets/hero-roof.jpg") center 38% / cover no-repeat;
+      linear-gradient(180deg, rgba(5,10,16,.45) 0%, rgba(5,10,16,.18) 32%, rgba(5,10,16,.28) 68%, rgba(5,8,14,.88) 100%),
+      url("assets/hero-roof.jpg") center 36% / cover no-repeat;
   }
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     width: min(1120px, calc(100% - 2rem));
     margin: 0 auto;
-    padding: 1.1rem 0 0;
+    padding: 1rem 0 0;
+    position: relative;
+    z-index: 3;
   }
-  .brand { display: flex; align-items: center; gap: 0.7rem; font-weight: 900; letter-spacing: 0.16em; font-size: 1.25rem; text-shadow: 0 2px 12px rgba(0,0,0,.55); }
-  .brand img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #ff3030; }
-  nav { display: flex; gap: 1.15rem; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+  .brand { display: flex; align-items: center; gap: 0.7rem; font-weight: 900; letter-spacing: 0.16em; font-size: 1.35rem; text-shadow: 0 2px 12px rgba(0,0,0,.55); }
+  .brand img { width: 46px; height: 46px; border-radius: 50%; border: 2px solid #ff3030; }
+  .head-right { display: flex; align-items: center; gap: 1rem; }
+  nav { display: flex; gap: 1.15rem; font-weight: 700; font-size: 1.05rem; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
   nav a:hover { color: var(--amber); }
+  .lang {
+    display: flex;
+    border: 2px solid var(--amber);
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(0,0,0,.62);
+    box-shadow: 0 0 0 4px rgba(245,180,42,.28), 0 8px 20px rgba(0,0,0,.35);
+  }
+  .lang button {
+    min-width: 5.2rem;
+    min-height: 3rem;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+  .lang button.on { background: var(--amber); color: #1a1204; }
   .hero {
     flex: 1;
-    width: min(1120px, calc(100% - 2rem));
-    margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem 0 1.4rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem 1rem;
+  }
+  .hero-copy {
+    width: min(760px, 100%);
+    text-align: center;
+    background: rgba(6, 10, 16, 0.58);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 1.2rem;
+    padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1.2rem, 4vw, 2.4rem);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    backdrop-filter: blur(6px);
   }
   .kicker {
     display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    width: fit-content;
-    padding: 0.28rem 0.7rem;
+    margin: 0 auto;
+    padding: 0.35rem 0.9rem;
     border-radius: 999px;
-    background: rgba(8, 16, 12, 0.55);
-    border: 1px solid rgba(125, 255, 200, 0.45);
+    background: rgba(8, 16, 12, 0.7);
+    border: 1px solid rgba(125, 255, 200, 0.5);
     color: #b8ffd8;
-    font-size: 0.78rem;
-    font-weight: 700;
+    font-size: 0.95rem;
+    font-weight: 800;
     letter-spacing: 0.14em;
   }
   h1 {
-    margin-top: 0.7rem;
-    font-size: clamp(2.6rem, 7vw, 5rem);
+    margin-top: 0.85rem;
+    font-size: clamp(3.4rem, 9vw, 6.2rem);
     font-weight: 900;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     line-height: 1.02;
-    text-shadow: 0 8px 28px rgba(0,0,0,.55);
   }
   .lede {
-    margin-top: 0.55rem;
-    max-width: 34rem;
-    color: var(--muted);
-    font-size: 1.05rem;
+    margin: 0.9rem auto 0;
+    max-width: 38rem;
+    color: rgba(244,247,251,.92);
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
     line-height: 1.7;
-    text-shadow: 0 2px 10px rgba(0,0,0,.65);
   }
-  .cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.15rem; }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.4rem; }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 3rem;
-    padding: 0 1.25rem;
-    border-radius: 0.45rem;
+    min-height: 3.5rem;
+    min-width: 9rem;
+    padding: 0 1.5rem;
+    border-radius: 0.5rem;
     font-weight: 900;
+    font-size: 1.2rem;
     letter-spacing: 0.08em;
   }
   .btn-play { color: #1a1204; background: linear-gradient(180deg, #ffe08a, #f5b42a 55%, #d88800); }
-  .btn-ghost { border: 1px solid rgba(255,255,255,.45); background: rgba(0,0,0,.28); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,.5); background: rgba(0,0,0,.28); }
   .shelf {
     width: min(1120px, calc(100% - 2rem));
-    margin: 0 auto 1.4rem;
+    margin: 0 auto 1.3rem;
     display: grid;
     grid-template-columns: 1.4fr 0.8fr 0.8fr;
     gap: 0.75rem;
@@ -100,23 +127,22 @@
     border-radius: 0.7rem;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,.16);
-    background: rgba(8, 12, 18, 0.72);
-    backdrop-filter: blur(8px);
+    background: rgba(8, 12, 18, 0.78);
     display: flex;
     align-items: center;
     gap: 0.8rem;
     padding: 0.7rem 0.85rem;
   }
   .slot img { width: 92px; height: 64px; object-fit: cover; border-radius: 0.4rem; flex: none; }
-  .slot strong { display: block; letter-spacing: 0.04em; }
-  .slot span { color: rgba(244,247,251,.68); font-size: 0.86rem; }
-  .live { color: #7dffc8; font-size: 0.72rem; letter-spacing: 0.14em; font-weight: 800; }
-  .soon { justify-content: center; text-align: center; color: rgba(244,247,251,.7); letter-spacing: 0.12em; }
-  footer { text-align: center; color: rgba(244,247,251,.4); letter-spacing: 0.16em; font-size: 0.8rem; padding-bottom: 1rem; }
+  .slot strong { display: block; letter-spacing: 0.04em; font-size: 1.05rem; }
+  .slot span { color: rgba(244,247,251,.72); font-size: 0.92rem; }
+  .live { color: #7dffc8; font-size: 0.78rem; letter-spacing: 0.14em; font-weight: 800; }
+  .soon { justify-content: center; text-align: center; color: rgba(244,247,251,.75); letter-spacing: 0.12em; }
+  footer { text-align: center; color: rgba(244,247,251,.45); letter-spacing: 0.16em; font-size: 0.85rem; padding-bottom: 1rem; }
   @media (max-width: 800px) {
     nav { display: none; }
     .shelf { grid-template-columns: 1fr; }
-    .stage { background-position: center 30%; }
+    .lang button { min-width: 4.4rem; }
   }
 </style>
 </head>
@@ -125,36 +151,51 @@
     <header>
       <a class="brand" href="./">
         <img src="assets/cannikin_logo.jpg" alt="">
-        大番薯
+        <span data-zh="大番薯" data-en="Da Ban Shu">大番薯</span>
       </a>
-      <nav>
-        <a href="./">大廳</a>
-        <a href="play.html">開始遊戲</a>
-        <a href="guide/">玩法介紹</a>
-      </nav>
+      <div class="head-right">
+        <nav>
+          <a href="./" data-zh="大廳" data-en="Hall">大廳</a>
+          <a href="play.html" data-zh="開始遊戲" data-en="Play">開始遊戲</a>
+          <a href="guide/" data-zh="玩法介紹" data-en="Guide">玩法介紹</a>
+        </nav>
+        <div class="lang" role="group" aria-label="語言 Language">
+          <button type="button" data-lang-switch="zh">中文</button>
+          <button type="button" data-lang-switch="en">EN</button>
+        </div>
+      </div>
     </header>
     <section class="hero">
-      <div class="kicker">第一款 · 天台快樂模式</div>
-      <h1>方塊突擊</h1>
-      <p class="lede">天台上站滿了人。這一款先自己玩，下面空位留給之後的遊戲。</p>
-      <div class="cta">
-        <a class="btn btn-play" href="play.html">進入遊戲</a>
-        <a class="btn btn-ghost" href="guide/">看介紹</a>
+      <div class="hero-copy">
+        <div class="kicker" data-zh="第一款 · 天台快樂模式" data-en="FIRST GAME · ROOFTOP">第一款 · 天台快樂模式</div>
+        <h1 data-zh="方塊突擊" data-en="Block Strike">方塊突擊</h1>
+        <p class="lede" data-zh="天台上站滿了人。這一款先自己玩，下面空位留給之後的遊戲。" data-en="The roof is already full of players. This is the first game. The empty slots below are for the next ones.">天台上站滿了人。這一款先自己玩，下面空位留給之後的遊戲。</p>
+        <div class="cta">
+          <a class="btn btn-play" href="play.html" data-zh="進入遊戲" data-en="Play now">進入遊戲</a>
+          <a class="btn btn-ghost" href="guide/" data-zh="看介紹" data-en="How to play">看介紹</a>
+        </div>
       </div>
     </section>
     <section class="shelf" aria-label="遊戲列表">
       <a class="slot" href="play.html">
         <img src="assets/hero-roof.jpg" alt="">
         <div>
-          <div class="live">可玩</div>
-          <strong>方塊突擊 RBMK-1000</strong>
-          <span>天台、核電站、一打百</span>
+          <div class="live" data-zh="可玩" data-en="PLAYABLE">可玩</div>
+          <strong data-zh="方塊突擊 RBMK-1000" data-en="Block Strike RBMK-1000">方塊突擊 RBMK-1000</strong>
+          <span data-zh="天台、核電站、一打百" data-en="Rooftop, reactor, one versus a hundred">天台、核電站、一打百</span>
         </div>
       </a>
-      <div class="slot soon"><div><strong>即將上架</strong><span>下一款遊戲</span></div></div>
-      <div class="slot soon"><div><strong>即將上架</strong><span>再下一款</span></div></div>
+      <div class="slot soon"><div>
+        <strong data-zh="即將上架" data-en="Coming soon">即將上架</strong>
+        <span data-zh="下一款遊戲" data-en="Next game">下一款遊戲</span>
+      </div></div>
+      <div class="slot soon"><div>
+        <strong data-zh="即將上架" data-en="Coming soon">即將上架</strong>
+        <span data-zh="再下一款" data-en="One more slot">再下一款</span>
+      </div></div>
     </section>
-    <footer>大番薯</footer>
+    <footer data-zh="大番薯" data-en="Da Ban Shu">大番薯</footer>
   </div>
+  <script src="assets/lang.js"></script>
 </body>
 </html>
