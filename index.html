@@ -3,294 +3,201 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>大番薯</title>
+<title>大番薯 · 遊戲大廳</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oxanium:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #07090d;
+    --bg: #090b10;
+    --panel: #121722;
     --amber: #f5b42a;
-    --amber-deep: #c77800;
     --fog: #e8eef6;
-    --muted: rgba(232, 238, 246, 0.72);
-    --line: rgba(245, 180, 42, 0.28);
+    --muted: rgba(232, 238, 246, 0.68);
+    --line: rgba(255, 255, 255, 0.1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
   body {
     min-height: 100vh;
-    background: var(--bg);
+    background:
+      radial-gradient(ellipse at top, rgba(245, 180, 42, 0.08), transparent 42%),
+      var(--bg);
     color: var(--fog);
     font-family: "Noto Sans TC", sans-serif;
-    overflow-x: hidden;
   }
   a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1080px, calc(100% - 2rem)); margin: 0 auto; }
 
-  /* —— Top brand bar —— */
-  .topbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 20;
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(9, 11, 16, 0.9);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+  }
+  header .wrap {
+    min-height: 4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: min(1180px, calc(100% - 2rem));
-    margin: 0 auto;
-    padding: 0.95rem 0;
-    opacity: 0;
-    animation: fadeUp 0.7s ease 0.08s forwards;
-  }
-  .topbar::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 100vw;
-    height: calc(100% + 0.55rem);
-    background: linear-gradient(180deg, rgba(7,9,13,0.82), rgba(7,9,13,0));
-    z-index: -1;
-    pointer-events: none;
+    gap: 1rem;
   }
   .brand {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    font-size: 1.2rem;
   }
   .brand img {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: 2px solid #ff3030;
-    flex-shrink: 0;
   }
-  .brand-name {
-    font-weight: 900;
-    font-size: clamp(1.55rem, 3.2vw, 2rem);
-    letter-spacing: 0.18em;
-    line-height: 1;
-    color: #fff;
-    text-shadow: 0 0 22px rgba(245, 180, 42, 0.35);
-  }
-  .top-link {
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.08em;
-    color: #fff;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.65);
-    border-bottom: 1px solid rgba(245, 180, 42, 0.55);
-    padding-bottom: 2px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .top-link:hover { color: var(--amber); border-color: var(--amber); }
+  nav { display: flex; gap: 1.1rem; color: var(--muted); font-weight: 700; }
+  nav a:hover { color: var(--amber); }
 
-  /* —— Hero —— */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    min-height: 100dvh;
+  .hero { padding: 2.6rem 0 1.2rem; }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+  }
+  .hero p {
+    margin-top: 0.7rem;
+    max-width: 36rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .hall { padding: 0.6rem 0 3rem; }
+  .hall h2 {
+    font-size: 1.15rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.9rem;
+  }
+  .grid {
     display: grid;
-    align-items: center;
-    isolation: isolate;
+    grid-template-columns: 1.4fr 0.8fr;
+    gap: 1rem;
+  }
+  .card {
+    display: grid;
+    grid-template-rows: 220px auto;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
     overflow: hidden;
   }
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background:
-      url("assets/hero-clean.jpg") center 42% / cover no-repeat;
-    transform: scale(1.04);
-    animation: kenburns 22s ease-in-out infinite alternate;
+  .card .shot {
+    background: #000 center / cover no-repeat;
   }
-  .hero-shade {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      linear-gradient(90deg, rgba(7, 9, 13, 0.88) 0%, rgba(7, 9, 13, 0.55) 42%, rgba(7, 9, 13, 0.22) 68%, rgba(7, 9, 13, 0.45) 100%),
-      linear-gradient(180deg, rgba(7, 9, 13, 0.55) 0%, transparent 28%, transparent 62%, rgba(7, 9, 13, 0.82) 100%);
+  .card .body { padding: 1.1rem 1.15rem 1.2rem; }
+  .tag {
+    color: #7dffc8;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    font-weight: 700;
   }
-  .hero-copy {
-    width: min(1180px, calc(100% - 2rem));
-    margin: 0 auto;
-    padding: 6.5rem 0 4rem;
-  }
-  .hero-copy h1 {
-    max-width: 8.2em;
-    font-weight: 900;
-    font-size: clamp(2.6rem, 6.4vw, 4.6rem);
-    line-height: 1.12;
+  .card h3 {
+    margin: 0.35rem 0 0.4rem;
+    font-size: 1.45rem;
     letter-spacing: 0.04em;
-    text-wrap: balance;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
   }
-  .hero-copy .lede {
-    margin-top: 1.15rem;
-    max-width: 28rem;
-    font-size: clamp(1.02rem, 2vw, 1.18rem);
-    font-weight: 500;
-    line-height: 1.75;
-    color: var(--muted);
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.34s forwards;
-  }
-  .cta {
-    margin-top: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.48s forwards;
-  }
+  .card p { color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 3.6rem;
-    padding: 0 1.7rem;
+    min-height: 2.7rem;
+    padding: 0 1.1rem;
     border-radius: 0.4rem;
-    font-weight: 900;
-    font-size: 1.05rem;
-    letter-spacing: 0.12em;
-    transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+    font-weight: 800;
+    letter-spacing: 0.06em;
   }
   .btn-play {
     color: #1a1204;
     background: linear-gradient(180deg, #ffd978, #f5b42a 55%, #d88800);
-    box-shadow: 0 12px 32px rgba(245, 180, 42, 0.28);
-    min-width: 11.5rem;
   }
-  .btn-play:hover { filter: brightness(1.06); transform: translateY(-2px); }
-  .btn-more {
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.28);
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(6px);
-  }
-  .btn-more:hover { border-color: var(--amber); background: rgba(245, 180, 42, 0.08); }
-
-  /* —— Game strip (one interactive surface, not a card stack) —— */
-  .feature {
-    position: relative;
-    min-height: min(88vh, 760px);
+  .btn-ghost { border: 1px solid rgba(255,255,255,0.28); }
+  .soon {
     display: grid;
-    align-items: end;
-    overflow: hidden;
-    isolation: isolate;
-  }
-  .feature-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background: url("assets/scene-roof.jpg") center / cover no-repeat;
-    transform: scale(1.03);
-  }
-  .feature-shade {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      linear-gradient(180deg, rgba(7,9,13,0.35) 0%, rgba(7,9,13,0.25) 35%, rgba(7,9,13,0.88) 100%),
-      linear-gradient(90deg, rgba(7,9,13,0.7) 0%, transparent 55%);
-  }
-  .feature-inner {
-    width: min(1180px, calc(100% - 2rem));
-    margin: 0 auto;
-    padding: 4.5rem 0 3.5rem;
-  }
-  .feature-kicker {
-    font-family: Oxanium, "Noto Sans TC", sans-serif;
-    font-weight: 700;
-    font-size: 0.82rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #7dffc8;
-    margin-bottom: 0.85rem;
-  }
-  .feature h2 {
-    font-weight: 900;
-    font-size: clamp(2rem, 4.5vw, 3.1rem);
-    letter-spacing: 0.06em;
-    line-height: 1.15;
-    margin-bottom: 0.85rem;
-  }
-  .feature p {
-    max-width: 32rem;
-    color: var(--muted);
-    font-size: 1.05rem;
-    line-height: 1.75;
-    margin-bottom: 1.6rem;
-  }
-  .feature .btn-play { min-width: 12.5rem; min-height: 3.8rem; font-size: 1.08rem; }
-
-  footer {
-    padding: 1.6rem 1rem 2.2rem;
+    place-items: center;
     text-align: center;
-    color: rgba(232, 238, 246, 0.42);
-    font-size: 0.86rem;
+    padding: 1.4rem;
+    color: var(--muted);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.03), transparent),
+      var(--panel);
+  }
+  .soon strong { display: block; color: #fff; letter-spacing: 0.12em; margin-bottom: 0.4rem; }
+  footer {
+    text-align: center;
+    color: rgba(232,238,246,0.4);
+    padding: 0 1rem 2rem;
     letter-spacing: 0.14em;
+    font-size: 0.85rem;
   }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes kenburns {
-    from { transform: scale(1.04) translate3d(0,0,0); }
-    to { transform: scale(1.1) translate3d(-1.2%, -0.8%, 0); }
-  }
-
-  @media (max-width: 720px) {
-    .topbar { padding-top: 0.95rem; }
-    .brand img { width: 42px; height: 42px; }
-    .hero-copy { padding: 5.8rem 0 3rem; }
-    .hero-copy h1 { max-width: none; font-size: clamp(2.25rem, 11vw, 3rem); }
-    .cta { flex-direction: column; align-items: stretch; }
-    .btn { width: 100%; min-height: 3.4rem; }
-    .feature { min-height: 70vh; }
-    .feature-inner { padding: 3rem 0 2.6rem; }
+  @media (max-width: 800px) {
+    nav { display: none; }
+    .grid { grid-template-columns: 1fr; }
+    .card { grid-template-rows: 180px auto; }
   }
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <a class="brand" href="./">
-      <img src="assets/cannikin_logo.jpg" alt="">
-      <span class="brand-name">大番薯</span>
-    </a>
-    <a class="top-link" href="#play">遊戲</a>
-  </div>
-
-  <header class="hero">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-shade" aria-hidden="true"></div>
-    <div class="hero-copy">
-      <h1>方塊世界<br>立刻開戰</h1>
-      <p class="lede">瀏覽器就能玩。先從《方塊突擊》開始，之後會陸續加上更多小遊戲。</p>
-      <div class="cta">
-        <a class="btn btn-play" href="game/">立即遊玩</a>
-        <a class="btn btn-more" href="guide/">遊戲介紹</a>
-      </div>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/cannikin_logo.jpg" alt="">
+        大番薯
+      </a>
+      <nav>
+        <a href="./">大廳</a>
+        <a href="play.html">開始遊戲</a>
+        <a href="guide/">玩法介紹</a>
+      </nav>
     </div>
   </header>
 
-  <section class="feature" id="play">
-    <div class="feature-bg" aria-hidden="true"></div>
-    <div class="feature-shade" aria-hidden="true"></div>
-    <div class="feature-inner">
-      <div class="feature-kicker">FPS · 10v10 · 單機 BOT</div>
-      <h2>方塊突擊 RBMK-1000</h2>
-      <p>核電站地圖裡的第一人稱射擊：殲滅、拆除、軍備競賽、天台對戰。你與 19 名電腦同場，鍵鼠操作最順手。</p>
-      <div class="cta" style="opacity:1;animation:none;margin-top:0">
-        <a class="btn btn-play" href="game/">進入遊戲</a>
-        <a class="btn btn-more" href="guide/">玩法圖鑑</a>
-      </div>
+  <section class="hero">
+    <div class="wrap">
+      <h1>大番薯遊戲大廳</h1>
+      <p>這是放遊戲的網站。遊戲都套在這個站裡，先上線《方塊突擊》，之後可以繼續加新的遊戲。</p>
     </div>
   </section>
 
+  <main class="hall">
+    <div class="wrap">
+      <h2>現在可玩</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="shot" style="background-image:url('assets/hero-clean.jpg')"></div>
+          <div class="body">
+            <div class="tag">FPS · 單機</div>
+            <h3>方塊突擊 RBMK-1000</h3>
+            <p>方塊風第一人稱射擊。核電站地圖，你和 19 名電腦對戰。可選服裝、寵物、武器和模式。</p>
+            <div class="actions">
+              <a class="btn btn-play" href="play.html">在本站打開</a>
+              <a class="btn btn-ghost" href="guide/">看介紹</a>
+            </div>
+          </div>
+        </article>
+        <aside class="card soon">
+          <div>
+            <strong>下一款遊戲</strong>
+            位置先留在這裡。做好之後，會跟方塊突擊一樣放進這個大廳。
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
   <footer>大番薯</footer>
 </body>
 </html>
