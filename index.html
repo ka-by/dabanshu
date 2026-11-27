@@ -6,154 +6,123 @@
 <title>大番薯 · 遊戲大廳</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #090b10;
-    --panel: #121722;
     --amber: #f5b42a;
-    --fog: #e8eef6;
-    --muted: rgba(232, 238, 246, 0.68);
-    --line: rgba(255, 255, 255, 0.1);
+    --fog: #f4f7fb;
+    --muted: rgba(244, 247, 251, 0.82);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    min-height: 100vh;
-    background:
-      radial-gradient(ellipse at top, rgba(245, 180, 42, 0.08), transparent 42%),
-      var(--bg);
-    color: var(--fog);
-    font-family: "Noto Sans TC", sans-serif;
-  }
+  html, body { min-height: 100%; background: #071018; color: var(--fog); font-family: "Noto Sans TC", sans-serif; }
   a { color: inherit; text-decoration: none; }
-  .wrap { width: min(1080px, calc(100% - 2rem)); margin: 0 auto; }
-
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background: rgba(9, 11, 16, 0.9);
-    border-bottom: 1px solid var(--line);
-    backdrop-filter: blur(10px);
+  .stage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background:
+      linear-gradient(180deg, rgba(5, 10, 16, 0.34) 0%, rgba(5, 10, 16, 0.02) 24%, rgba(5, 10, 16, 0.12) 46%, rgba(5, 8, 14, 0.72) 68%, rgba(5, 8, 14, 0.94) 100%),
+      url("assets/hero-roof.jpg") center 38% / cover no-repeat;
   }
-  header .wrap {
-    min-height: 4rem;
+  header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.1rem 0 0;
   }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    font-size: 1.2rem;
-  }
-  .brand img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid #ff3030;
-  }
-  nav { display: flex; gap: 1.1rem; color: var(--muted); font-weight: 700; }
+  .brand { display: flex; align-items: center; gap: 0.7rem; font-weight: 900; letter-spacing: 0.16em; font-size: 1.25rem; text-shadow: 0 2px 12px rgba(0,0,0,.55); }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #ff3030; }
+  nav { display: flex; gap: 1.15rem; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
   nav a:hover { color: var(--amber); }
-
-  .hero { padding: 2.6rem 0 1.2rem; }
-  .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
+  .hero {
+    flex: 1;
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 0 1.4rem;
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: fit-content;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(8, 16, 12, 0.55);
+    border: 1px solid rgba(125, 255, 200, 0.45);
+    color: #b8ffd8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+  h1 {
+    margin-top: 0.7rem;
+    font-size: clamp(2.6rem, 7vw, 5rem);
     font-weight: 900;
     letter-spacing: 0.06em;
-    line-height: 1.15;
+    line-height: 1.02;
+    text-shadow: 0 8px 28px rgba(0,0,0,.55);
   }
-  .hero p {
-    margin-top: 0.7rem;
-    max-width: 36rem;
+  .lede {
+    margin-top: 0.55rem;
+    max-width: 34rem;
     color: var(--muted);
     font-size: 1.05rem;
     line-height: 1.7;
+    text-shadow: 0 2px 10px rgba(0,0,0,.65);
   }
-
-  .hall { padding: 0.6rem 0 3rem; }
-  .hall h2 {
-    font-size: 1.15rem;
-    letter-spacing: 0.14em;
-    margin-bottom: 0.9rem;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: 1.4fr 0.8fr;
-    gap: 1rem;
-  }
-  .card {
-    display: grid;
-    grid-template-rows: 220px auto;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 0.9rem;
-    overflow: hidden;
-  }
-  .card .shot {
-    background: #000 center / cover no-repeat;
-  }
-  .card .body { padding: 1.1rem 1.15rem 1.2rem; }
-  .tag {
-    color: #7dffc8;
-    font-size: 0.75rem;
-    letter-spacing: 0.16em;
-    font-weight: 700;
-  }
-  .card h3 {
-    margin: 0.35rem 0 0.4rem;
-    font-size: 1.45rem;
-    letter-spacing: 0.04em;
-  }
-  .card p { color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
-  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.15rem; }
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.7rem;
-    padding: 0 1.1rem;
-    border-radius: 0.4rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+    min-height: 3rem;
+    padding: 0 1.25rem;
+    border-radius: 0.45rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
   }
-  .btn-play {
-    color: #1a1204;
-    background: linear-gradient(180deg, #ffd978, #f5b42a 55%, #d88800);
-  }
-  .btn-ghost { border: 1px solid rgba(255,255,255,0.28); }
-  .soon {
+  .btn-play { color: #1a1204; background: linear-gradient(180deg, #ffe08a, #f5b42a 55%, #d88800); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,.45); background: rgba(0,0,0,.28); }
+  .shelf {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto 1.4rem;
     display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 1.4rem;
-    color: var(--muted);
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.03), transparent),
-      var(--panel);
+    grid-template-columns: 1.4fr 0.8fr 0.8fr;
+    gap: 0.75rem;
   }
-  .soon strong { display: block; color: #fff; letter-spacing: 0.12em; margin-bottom: 0.4rem; }
-  footer {
-    text-align: center;
-    color: rgba(232,238,246,0.4);
-    padding: 0 1rem 2rem;
-    letter-spacing: 0.14em;
-    font-size: 0.85rem;
+  .slot {
+    min-height: 92px;
+    border-radius: 0.7rem;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(8, 12, 18, 0.72);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 0.85rem;
   }
+  .slot img { width: 92px; height: 64px; object-fit: cover; border-radius: 0.4rem; flex: none; }
+  .slot strong { display: block; letter-spacing: 0.04em; }
+  .slot span { color: rgba(244,247,251,.68); font-size: 0.86rem; }
+  .live { color: #7dffc8; font-size: 0.72rem; letter-spacing: 0.14em; font-weight: 800; }
+  .soon { justify-content: center; text-align: center; color: rgba(244,247,251,.7); letter-spacing: 0.12em; }
+  footer { text-align: center; color: rgba(244,247,251,.4); letter-spacing: 0.16em; font-size: 0.8rem; padding-bottom: 1rem; }
   @media (max-width: 800px) {
     nav { display: none; }
-    .grid { grid-template-columns: 1fr; }
-    .card { grid-template-rows: 180px auto; }
+    .shelf { grid-template-columns: 1fr; }
+    .stage { background-position: center 30%; }
   }
 </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
+  <div class="stage">
+    <header>
       <a class="brand" href="./">
         <img src="assets/cannikin_logo.jpg" alt="">
         大番薯
@@ -163,41 +132,29 @@
         <a href="play.html">開始遊戲</a>
         <a href="guide/">玩法介紹</a>
       </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="wrap">
-      <h1>大番薯遊戲大廳</h1>
-      <p>這是放遊戲的網站。遊戲都套在這個站裡，先上線《方塊突擊》，之後可以繼續加新的遊戲。</p>
-    </div>
-  </section>
-
-  <main class="hall">
-    <div class="wrap">
-      <h2>現在可玩</h2>
-      <div class="grid">
-        <article class="card">
-          <div class="shot" style="background-image:url('assets/hero-clean.jpg')"></div>
-          <div class="body">
-            <div class="tag">FPS · 單機</div>
-            <h3>方塊突擊 RBMK-1000</h3>
-            <p>方塊風第一人稱射擊。核電站地圖，你和 19 名電腦對戰。可選服裝、寵物、武器和模式。</p>
-            <div class="actions">
-              <a class="btn btn-play" href="play.html">在本站打開</a>
-              <a class="btn btn-ghost" href="guide/">看介紹</a>
-            </div>
-          </div>
-        </article>
-        <aside class="card soon">
-          <div>
-            <strong>下一款遊戲</strong>
-            位置先留在這裡。做好之後，會跟方塊突擊一樣放進這個大廳。
-          </div>
-        </aside>
+    </header>
+    <section class="hero">
+      <div class="kicker">第一款 · 天台快樂模式</div>
+      <h1>方塊突擊</h1>
+      <p class="lede">天台上站滿了人。這一款先自己玩，下面空位留給之後的遊戲。</p>
+      <div class="cta">
+        <a class="btn btn-play" href="play.html">進入遊戲</a>
+        <a class="btn btn-ghost" href="guide/">看介紹</a>
       </div>
-    </div>
-  </main>
-  <footer>大番薯</footer>
+    </section>
+    <section class="shelf" aria-label="遊戲列表">
+      <a class="slot" href="play.html">
+        <img src="assets/hero-roof.jpg" alt="">
+        <div>
+          <div class="live">可玩</div>
+          <strong>方塊突擊 RBMK-1000</strong>
+          <span>天台、核電站、一打百</span>
+        </div>
+      </a>
+      <div class="slot soon"><div><strong>即將上架</strong><span>下一款遊戲</span></div></div>
+      <div class="slot soon"><div><strong>即將上架</strong><span>再下一款</span></div></div>
+    </section>
+    <footer>大番薯</footer>
+  </div>
 </body>
 </html>

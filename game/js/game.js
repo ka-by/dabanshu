@@ -5020,6 +5020,37 @@
     camera.position.set(player.pos.x, player.pos.y + player.eyeH, player.pos.z);
     camera.rotation.y = player.yaw + Math.PI;
     camera.rotation.x = player.pitch;
+    /* 開發用：?poster=roof 把快樂模式人群排上天台，給入口頁截一張無界面背景 */
+    if (q.get('poster') === 'roof') {
+      var poi = 0;
+      for (var pbi = 0; pbi < bots.length; pbi++) {
+        var pb = bots[pbi];
+        if (pb.team !== 'orange') { pb.mesh.visible = false; continue; }
+        var pcol = poi % 10;
+        var prow = Math.floor(poi / 10) % 10;
+        pb.alive = true;
+        pb.mesh.visible = true;
+        pb.pos.set(-8.1 + pcol * 1.8, 10.45, 12 + prow * 1.2);
+        pb.introY = 10.45;
+        pb.yaw = Math.PI;
+        if (pb.label) pb.label.visible = false;
+        if (typeof pb.updateDance === 'function') pb.updateDance(0.05);
+        poi++;
+      }
+      if (scene.fog) {
+        scene.fog.color.setHex(0xb7d4ea);
+        scene.fog.near = 28;
+        scene.fog.far = 78;
+      }
+      if (viewRoot) viewRoot.visible = false;
+      if (playerBody) playerBody.group.visible = false;
+      if (elIntro) elIntro.classList.remove('show');
+      camera.fov = 52;
+      camera.updateProjectionMatrix();
+      camera.position.set(0.4, 15.6, 33.5);
+      camera.lookAt(0, 11.15, 16);
+      window.__POSTER_READY = poi;
+    }
     if (q.get('photo') === '1') {
       enterPhotoMode({
         count: parseInt(q.get('count') || '20', 10),
